@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title text-capitalize>
+            {{card?.name}}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding *ngIf="card.cardId">
+    <ion-item *ngIf="card.img || card.imgGold">
+        <ion-img class="card-image" [src]="imageUrl" (click)="changeImage()"></ion-img>
+        <!--<ion-img class="card-image" *ngIf="card.imgGold" [src]="card.imgGold"></ion-img>-->
+    </ion-item>
+    <ion-item *ngIf="card.health || card.attack">
+        <ion-label class="health-and-attack" *ngIf="card.attack" text-wrap>
+            <ion-icon name="flash" color="warning"></ion-icon>
+            <b> {{card.attack}}</b></ion-label>
+        <ion-label class="health-and-attack" *ngIf="card.health" text-wrap>
+            <ion-icon name="heart" color="danger"></ion-icon>
+            <b> {{card.health}}</b></ion-label>
+    </ion-item>
+    <p *ngIf="card.rarity" text-wrap><b>Rarity:</b> {{card.rarity}}</p>
+    <p *ngIf="card.type" text-wrap><b>Type:</b> {{card.type}}</p>
+    <p *ngIf="card.faction" text-wrap><b>Faction:</b> {{card.faction}}</p>
+    <p *ngIf="card.text" text-wrap><b>Card text:</b> {{card.text}}</p>
+    <p *ngIf="card.flavor" text-wrap><b>Flavor text:</b> {{card.flavor}}</p>
+</ion-content>
