@@ -21,6 +21,11 @@ export class CardDeckPage {
 		this.ALLOWED_DECKS.forEach((deckName: string) => this.cardDecks.push({name: deckName, types: cardDecks[deckName]}));
 	}
 
+	generateUrl(cardDeckGroup: string, cardDeck: string): string {
+		return `/tabs/(card:card/${cardDeckGroup}/${cardDeck}`;
+
+	}
+
 	private getCardDecks() {
 		this.cardService.getAllCardDecks().subscribe(
 			(cardDecks: CardDeck[]) => {
