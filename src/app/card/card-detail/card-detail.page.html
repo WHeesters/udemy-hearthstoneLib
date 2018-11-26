@@ -9,21 +9,32 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content padding *ngIf="card.cardId">
-    <ion-item *ngIf="card.img || card.imgGold">
-        <img class="card-image" [src]="imageUrl" (click)="changeImage()" (error)="updateImage($event)">
-    </ion-item>
-    <ion-item *ngIf="card.health || card.attack">
-        <ion-label class="health-and-attack" *ngIf="card.attack" text-wrap>
-            <ion-icon name="flash" color="warning"></ion-icon>
-            <b> {{card.attack}}</b></ion-label>
-        <ion-label class="health-and-attack" *ngIf="card.health" text-wrap>
-            <ion-icon name="heart" color="danger"></ion-icon>
-            <b> {{card.health}}</b></ion-label>
-    </ion-item>
-    <p *ngIf="card.rarity" text-wrap><b>Rarity:</b> {{card.rarity}}</p>
-    <p *ngIf="card.type" text-wrap><b>Type:</b> {{card.type}}</p>
-    <p *ngIf="card.faction" text-wrap><b>Faction:</b> {{card.faction}}</p>
-    <p *ngIf="card.text" text-wrap><b>Card text:</b> {{card.text}}</p>
-    <p *ngIf="card.flavor" text-wrap><b>Flavor text:</b> {{card.flavor}}</p>
+<ion-content padding>
+    <div *ngIf="card.cardId">
+        <ion-item *ngIf="card.img || card.imgGold">
+            <img class="card-image" [src]="imageUrl" (click)="changeImage()" (error)="updateImage($event)">
+        </ion-item>
+        <ion-row class="stats" *ngIf="card.health || card.attack || card.cost">
+            <ion-col *ngIf="card.cost">
+                <p class="health-and-attack" text-wrap>
+                    <ion-icon name="pricetag" color="primary"></ion-icon>
+                    <b> {{card.cost}}</b></p>
+            </ion-col>
+            <ion-col *ngIf="card.attack">
+                <p class="health-and-attack" text-wrap>
+                    <ion-icon name="flame" color="warning"></ion-icon>
+                    <b> {{card.attack}}</b></p>
+            </ion-col>
+            <ion-col *ngIf="card.health">
+                <p class="health-and-attack" text-wrap>
+                    <ion-icon name="heart" color="danger"></ion-icon>
+                    <b> {{card.health}}</b></p>
+            </ion-col>
+        </ion-row>
+        <p *ngIf="card.rarity" text-wrap><b>Rarity:</b> {{card.rarity}}</p>
+        <p *ngIf="card.type" text-wrap><b>Type:</b> {{card.type}}</p>
+        <p *ngIf="card.faction" text-wrap><b>Faction:</b> {{card.faction}}</p>
+        <p *ngIf="card.text" text-wrap><b>Card text:</b> {{card.text}}</p>
+        <p *ngIf="card.flavor" text-wrap><b>Flavor text:</b> {{card.flavor}}</p>
+    </div>
 </ion-content>
