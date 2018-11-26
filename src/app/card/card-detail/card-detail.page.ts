@@ -40,4 +40,8 @@ export class CardDetailPage {
 			this.imageUrl = this.card.img;
 		}
 	}
+
+	updateImage() {
+		this.imageUrl = 'assets/image/DefaultCard.png';
+	}
 }

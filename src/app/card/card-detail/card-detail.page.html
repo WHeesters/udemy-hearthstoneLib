@@ -11,8 +11,7 @@
 
 <ion-content padding *ngIf="card.cardId">
     <ion-item *ngIf="card.img || card.imgGold">
-        <ion-img class="card-image" [src]="imageUrl" (click)="changeImage()"></ion-img>
-        <!--<ion-img class="card-image" *ngIf="card.imgGold" [src]="card.imgGold"></ion-img>-->
+        <img class="card-image" [src]="imageUrl" (click)="changeImage()" (error)="updateImage($event)">
     </ion-item>
     <ion-item *ngIf="card.health || card.attack">
         <ion-label class="health-and-attack" *ngIf="card.attack" text-wrap>
