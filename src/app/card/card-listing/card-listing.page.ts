@@ -24,7 +24,10 @@ export class CardListingPage {
 
 		this.cardService.getCardsByDeck(this.cardDeckGroup, this.cardDeck).subscribe(
 			(cards: Card[]) => {
-				this.cards = cards;
+				this.cards = cards.map((card: Card) => {
+					card.text = card.text ? card.text.replace(new RegExp('\\\\n', 'g'), ', ') : 'No description';
+					return card;
+				});
 			}
 		);
 	}

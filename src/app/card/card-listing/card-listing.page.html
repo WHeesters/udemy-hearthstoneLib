@@ -15,7 +15,7 @@
                 <ion-card-title>{{card.name}}</ion-card-title>
             </ion-card-header>
             <ion-card-content>
-                <p>{{card.text}}</p>
+                <p [innerHtml]="card.text"></p>
                 <ion-button [href]="'/tabs/(card:card/' + card.cardId + ')'" size="medium" expand="full">Details
                 </ion-button>
             </ion-card-content>

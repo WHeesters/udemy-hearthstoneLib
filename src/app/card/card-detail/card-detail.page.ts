@@ -25,10 +25,11 @@ export class CardDetailPage {
 
 		this.cardService.getCardById(this.cardId).subscribe(
 			(card: Card[]) => {
-				this.card = card[0];
-				if (this.card.img) {
-					this.imageUrl = this.card.img;
-				}
+				this.card = card.map((card: Card) => {
+					card.text = card.text ? card.text.replace(new RegExp('\\\\n', 'g'), '</br>') : 'No description';
+					card.img = card.img ? this.imageUrl = card.img : card.img = this.imageUrl;
+					return card;
+				})[0];
 			}
 		);
 	}

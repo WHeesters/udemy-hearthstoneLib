@@ -10,11 +10,11 @@
 </ion-header>
 
 <ion-content padding>
-    <div *ngIf="card.cardId">
+    <div *ngIf="card" class="card-info">
         <ion-item *ngIf="card.img || card.imgGold">
             <img class="card-image" [src]="imageUrl" (click)="changeImage()" (error)="updateImage($event)">
         </ion-item>
-        <ion-row class="stats" *ngIf="card.health || card.attack || card.cost">
+        <ion-row *ngIf="card.health || card.attack || card.cost">
             <ion-col *ngIf="card.cost">
                 <p class="health-and-attack" text-wrap>
                     <ion-icon name="pricetag" color="primary"></ion-icon>
@@ -31,10 +31,9 @@
                     <b> {{card.health}}</b></p>
             </ion-col>
         </ion-row>
+        <p [innerHTML]="card.text" *ngIf="card.text" text-wrap></p>
         <p *ngIf="card.rarity" text-wrap><b>Rarity:</b> {{card.rarity}}</p>
         <p *ngIf="card.type" text-wrap><b>Type:</b> {{card.type}}</p>
         <p *ngIf="card.faction" text-wrap><b>Faction:</b> {{card.faction}}</p>
-        <p *ngIf="card.text" text-wrap><b>Card text:</b> {{card.text}}</p>
-        <p *ngIf="card.flavor" text-wrap><b>Flavor text:</b> {{card.flavor}}</p>
     </div>
 </ion-content>
