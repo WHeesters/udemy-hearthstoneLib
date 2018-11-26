@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {Card} from '../shared/card.model';
 import {ActivatedRoute} from '@angular/router';
 import {CardService} from '../shared/card.service';
+import {LoaderService} from '../../shared/service/loader.service';
 
 @Component({
 	selector: 'app-card-detail',
@@ -15,13 +16,15 @@ export class CardDetailPage {
 	card: any;
 	imageUrl = 'assets/image/DefaultCard.png';
 
-	constructor(private route: ActivatedRoute, private cardService: CardService) {
+	constructor(private route: ActivatedRoute, private cardService: CardService, private loaderService: LoaderService) {
 
 	}
 
 
 	ionViewWillEnter() {
 		this.cardId = this.route.snapshot.paramMap.get('cardId');
+
+		this.loaderService.presentLoading();
 
 		this.cardService.getCardById(this.cardId).subscribe(
 			(card: Card[]) => {
@@ -30,6 +33,7 @@ export class CardDetailPage {
 					card.img = card.img ? this.imageUrl = card.img : card.img = this.imageUrl;
 					return card;
 				})[0];
+				this.loaderService.dissmissLoading();
 			}
 		);
 	}
