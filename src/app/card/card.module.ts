@@ -11,6 +11,7 @@ import {CardService} from './shared/card.service';
 
 import {CardListComponent} from './components/card-list.component';
 import {LoaderService} from '../shared/service/loader.service';
+import {ToastService} from '../shared/service/toast.service';
 
 @NgModule({
 	imports: [
@@ -20,7 +21,8 @@ import {LoaderService} from '../shared/service/loader.service';
 	],
 	providers: [
 		CardService,
-		LoaderService
+		LoaderService,
+		ToastService
 	],
 	declarations: [
 		CardDeckPage,

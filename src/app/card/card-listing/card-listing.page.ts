@@ -5,6 +5,7 @@ import {CardService} from '../shared/card.service';
 
 import {Card} from '../shared/card.model';
 import {LoaderService} from '../../shared/service/loader.service';
+import {ToastService} from '../../shared/service/toast.service';
 
 @Component({
 	selector: 'app-card-listing',
@@ -17,13 +18,23 @@ export class CardListingPage {
 	cardDeck: string;
 	cards: Card[] = [];
 
-	constructor(private route: ActivatedRoute, private cardService: CardService, private loaderService: LoaderService) {
+	constructor(private route: ActivatedRoute,
+				private cardService: CardService,
+				private loaderService: LoaderService,
+				private toaster: ToastService) {
 	}
 
 	ionViewWillEnter() {
 		this.cardDeckGroup = this.route.snapshot.paramMap.get('cardDeckGroup');
 		this.cardDeck = this.route.snapshot.paramMap.get('cardDeck');
 
+		if (this.cards && this.cards.length === 0) {
+			this.getCards();
+		}
+
+	}
+
+	private getCards() {
 		this.loaderService.presentLoading();
 
 		this.cardService.getCardsByDeck(this.cardDeckGroup, this.cardDeck).subscribe(
@@ -33,6 +44,9 @@ export class CardListingPage {
 					return card;
 				});
 				this.loaderService.dissmissLoading();
+			}, () => {
+				this.loaderService.dissmissLoading();
+				this.toaster.presentErrorToast('Cards couldn\'t be loaded.');
 			}
 		);
 
