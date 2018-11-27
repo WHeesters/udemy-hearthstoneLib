@@ -1,6 +1,6 @@
 <ion-list *ngIf="items.length > 0">
     <ion-list-header>
-        <ion-label>{{listName}}</ion-label>
+        <ion-label text-capitalize>{{listName}}</ion-label>
     </ion-list-header>
     <ion-item [href]="navigateTo(listName, item)" *ngFor="let item of items">
         <ion-avatar slot="start">
