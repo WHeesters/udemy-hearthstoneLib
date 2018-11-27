@@ -3,26 +3,26 @@ import {LoadingController} from '@ionic/angular';
 
 @Injectable()
 export class LoaderService {
-	private loader;
+    private loader;
 
-	constructor(private loadingCtrl: LoadingController) {
+    constructor(private loadingCtrl: LoadingController) {
 
-	}
+    }
 
-	public async presentLoading() {
-		this.loader = await this.loadingCtrl.create({
-			content: 'Loading...',
-			translucent: true
-		});
+    public async presentLoading() {
+        this.loader = await this.loadingCtrl.create({
+            content: 'Loading...',
+            translucent: true
+        });
 
-		this.loader.present();
-		return this.loader;
-	}
+        this.loader.present();
+        return this.loader;
+    }
 
-	public dissmissLoading() {
-		if (this.loader) {
-			this.loader.dismiss();
-		}
-	}
+    public dissmissLoading() {
+        if (this.loader) {
+            this.loader.dismiss();
+        }
+    }
 
 }

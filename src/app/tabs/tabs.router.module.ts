@@ -9,47 +9,47 @@ import {CardListingPage} from '../card/card-listing/card-listing.page';
 import {CardDetailPage} from '../card/card-detail/card-detail.page';
 
 const routes: Routes = [
-	{
-		path: 'tabs',
-		component: TabsPage,
-		children: [
-			{
-				path: 'about',
-				outlet: 'about',
-				component: AboutPage
-			},
-			{
-				path: 'contact',
-				outlet: 'contact',
-				component: ContactPage
-			},
-			{
-				path: 'card',
-				outlet: 'card',
-				component: CardDeckPage
-			},
-			{
-				path: 'card/:cardDeckGroup/:cardDeck',
-				outlet: 'card',
-				component: CardListingPage
-			},
-			{
-				path: 'card/:cardId',
-				outlet: 'card',
-				component: CardDetailPage
-			}
-		]
-	},
-	{
-		path: '',
-		redirectTo: '/tabs/(card:card)',
-		pathMatch: 'full'
-	}
+    {
+        path: 'tabs',
+        component: TabsPage,
+        children: [
+            {
+                path: 'about',
+                outlet: 'about',
+                component: AboutPage
+            },
+            {
+                path: 'contact',
+                outlet: 'contact',
+                component: ContactPage
+            },
+            {
+                path: 'card',
+                outlet: 'card',
+                component: CardDeckPage
+            },
+            {
+                path: 'card/:cardDeckGroup/:cardDeck',
+                outlet: 'card',
+                component: CardListingPage
+            },
+            {
+                path: 'card/:cardId',
+                outlet: 'card',
+                component: CardDetailPage
+            }
+        ]
+    },
+    {
+        path: '',
+        redirectTo: '/tabs/(card:card)',
+        pathMatch: 'full'
+    }
 ];
 
 @NgModule({
-	imports: [RouterModule.forChild(routes)],
-	exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
 export class TabsPageRoutingModule {
 }

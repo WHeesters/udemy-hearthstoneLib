@@ -12,16 +12,16 @@ import {AboutPageModule} from '../about/about.module';
 import {CardPageModule} from '../card/card.module';
 
 @NgModule({
-	imports: [
-		IonicModule,
-		CommonModule,
-		FormsModule,
-		TabsPageRoutingModule,
-		AboutPageModule,
-		ContactPageModule,
-		CardPageModule
-	],
-	declarations: [TabsPage]
+    imports: [
+        IonicModule,
+        CommonModule,
+        FormsModule,
+        TabsPageRoutingModule,
+        AboutPageModule,
+        ContactPageModule,
+        CardPageModule
+    ],
+    declarations: [TabsPage]
 })
 export class TabsPageModule {
 }

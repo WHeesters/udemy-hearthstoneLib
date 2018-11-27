@@ -14,22 +14,22 @@ import {LoaderService} from '../shared/service/loader.service';
 import {ToastService} from '../shared/service/toast.service';
 
 @NgModule({
-	imports: [
-		IonicModule,
-		CommonModule,
-		HttpClientModule
-	],
-	providers: [
-		CardService,
-		LoaderService,
-		ToastService
-	],
-	declarations: [
-		CardDeckPage,
-		CardListingPage,
-		CardDetailPage,
-		CardListComponent
-	]
+    imports: [
+        IonicModule,
+        CommonModule,
+        HttpClientModule
+    ],
+    providers: [
+        CardService,
+        LoaderService,
+        ToastService
+    ],
+    declarations: [
+        CardDeckPage,
+        CardListingPage,
+        CardDetailPage,
+        CardListComponent
+    ]
 })
 export class CardPageModule {
 
