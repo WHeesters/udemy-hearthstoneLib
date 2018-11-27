@@ -34,6 +34,14 @@ export class CardListingPage {
 
 	}
 
+	doRefresh(event) {
+		this.getCards();
+
+		setTimeout(() => {
+			event.target.complete();
+		}, 1000);
+	}
+
 	private getCards() {
 		this.loaderService.presentLoading();
 
@@ -49,7 +57,6 @@ export class CardListingPage {
 				this.toaster.presentErrorToast('Cards couldn\'t be loaded.');
 			}
 		);
-
 	}
 
 

@@ -3,11 +3,14 @@
         <ion-buttons slot="start">
             <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
-        <ion-title text-capitalize>{{cardDeckGroup}}</ion-title>
+        <ion-title text-capitalize>{{cardDeck}}</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
     <ion-list *ngIf="cards.length > 0">
         <ion-card *ngFor="let card of cards">
             <ion-card-header text-wrap>
