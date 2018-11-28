@@ -17,6 +17,7 @@ export class CardListingPage {
     cardDeckGroup: string;
     cardDeck: string;
     cards: Card[] = [];
+    copyOfCards: Card[] = [];
 
     constructor(private route: ActivatedRoute,
                 private cardService: CardService,
@@ -42,6 +43,10 @@ export class CardListingPage {
         }, 1000);
     }
 
+    hydrateCards(cards: Card[]) {
+        this.cards = cards;
+    }
+
     private getCards() {
         this.loaderService.presentLoading();
 
@@ -51,6 +56,7 @@ export class CardListingPage {
                     card.text = card.text ? card.text.replace(new RegExp('\\\\n', 'g'), ', ') : 'No description';
                     return card;
                 });
+                this.copyOfCards = Array.from(this.cards);
                 this.loaderService.dissmissLoading();
             }, () => {
                 this.loaderService.dissmissLoading();
