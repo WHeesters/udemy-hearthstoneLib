@@ -22,5 +22,6 @@ export interface Card {
     text: string;
     race: string;
     flavor: string;
+    favorite: boolean;
 
 }

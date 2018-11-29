@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {Storage} from '@ionic/storage';
 
 import {CardService} from '../shared/card.service';
 
@@ -20,10 +21,16 @@ export class CardListingPage {
     copyOfCards: Card[] = [];
     isLoading = false;
 
+    favoriteCards: any = {};
+
     constructor(private route: ActivatedRoute,
                 private cardService: CardService,
                 private loaderService: LoaderService,
-                private toaster: ToastService) {
+                private toaster: ToastService,
+                private storage: Storage) {
+        this.storage.get('favoriteCards').then((favoriteCards) => {
+            this.favoriteCards = favoriteCards || {};
+        });
     }
 
     ionViewWillEnter() {
@@ -53,6 +60,19 @@ export class CardListingPage {
         this.isLoading = true;
     }
 
+    favoriteCard(card: Card) {
+        if (card.favorite) {
+            card.favorite = false;
+            delete this.favoriteCards[card.cardId];
+        } else {
+            card.favorite = true;
+            this.favoriteCards[card.cardId] = card;
+        }
+
+        this.storage.set('favoriteCards', this.favoriteCards).then(() => {
+        });
+    }
+
     private getCards() {
         this.loaderService.presentLoading();
 
@@ -60,6 +80,7 @@ export class CardListingPage {
             (cards: Card[]) => {
                 this.cards = cards.map((card: Card) => {
                     card.text = card.text ? card.text.replace(new RegExp('\\\\n', 'g'), ', ') : 'No description';
+                    card.favorite = this.cardIsFavorite(card.cardId);
                     return card;
                 });
                 this.copyOfCards = Array.from(this.cards);
@@ -69,6 +90,11 @@ export class CardListingPage {
                 this.toaster.presentErrorToast('Cards couldn\'t be loaded.');
             }
         );
+    }
+
+    private cardIsFavorite(cardId: string): boolean {
+        const card = this.favoriteCards[cardId];
+        return card ? true : false;
     }
 
 
