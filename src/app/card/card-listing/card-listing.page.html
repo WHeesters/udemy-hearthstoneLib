@@ -8,10 +8,14 @@
 </ion-header>
 
 <ion-content padding>
-    <app-search (searchCompleted)="hydrateCards($event)" [items]="copyOfCards" [filteredProperty]="'name'"></app-search>
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
+    <app-search (searchCompleted)="hydrateCards($event)"
+                [items]="copyOfCards"
+                [filteredProperty]="'name'"
+                (searchStarted)="handleSearch()"></app-search>
+    <ion-spinner *ngIf="isLoading" text-center></ion-spinner>
     <ion-list *ngIf="cards.length > 0">
         <ion-card *ngFor="let card of cards">
             <ion-card-header text-wrap>

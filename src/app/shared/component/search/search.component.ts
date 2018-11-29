@@ -12,13 +12,13 @@ export class SearchComponent {
     @Input() items: any[] = [];
     @Input() filteredProperty: string;
     @Output() searchCompleted = new EventEmitter();
+    @Output() searchStarted = new EventEmitter();
 
     private searchSubject = new BehaviorSubject<string>('');
 
     handleSearch(event: any) {
-
+        this.searchStarted.emit();
         this.searchSubject.next(event.target.value);
-
 
     }
 

@@ -18,6 +18,7 @@ export class CardListingPage {
     cardDeck: string;
     cards: Card[] = [];
     copyOfCards: Card[] = [];
+    isLoading = false;
 
     constructor(private route: ActivatedRoute,
                 private cardService: CardService,
@@ -45,6 +46,11 @@ export class CardListingPage {
 
     hydrateCards(cards: Card[]) {
         this.cards = cards;
+        this.isLoading = false;
+    }
+
+    handleSearch() {
+        this.isLoading = true;
     }
 
     private getCards() {
