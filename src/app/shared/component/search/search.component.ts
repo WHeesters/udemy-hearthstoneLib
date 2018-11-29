@@ -23,7 +23,7 @@ export class SearchComponent {
     }
 
     ngAfterViewInit() {
-        this.searchSubject.pipe(debounceTime(1000), distinctUntilChanged()).subscribe(searchText => {
+        this.searchSubject.pipe(debounceTime(500), distinctUntilChanged()).subscribe(searchText => {
             if (!this.items) {
                 return this.searchCompleted.emit([]);
             }
