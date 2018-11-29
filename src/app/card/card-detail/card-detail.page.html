@@ -10,6 +10,9 @@
 </ion-header>
 
 <ion-content padding>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
     <div *ngIf="card" class="card-info">
         <ion-item *ngIf="card.img || card.imgGold">
             <img class="card-image" [src]="imageUrl" (click)="changeImage()" (error)="updateImage($event)">

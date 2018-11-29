@@ -3,6 +3,7 @@ import {Card} from '../shared/card.model';
 import {ActivatedRoute} from '@angular/router';
 import {CardService} from '../shared/card.service';
 import {LoaderService} from '../../shared/service/loader.service';
+import {ToastService} from '../../shared/service/toast.service';
 
 @Component({
     selector: 'app-card-detail',
@@ -16,14 +17,21 @@ export class CardDetailPage {
     card: any;
     imageUrl = 'assets/image/DefaultCard.png';
 
-    constructor(private route: ActivatedRoute, private cardService: CardService, private loaderService: LoaderService) {
+    constructor(private route: ActivatedRoute,
+                private cardService: CardService,
+                private loaderService: LoaderService,
+                private toaster: ToastService) {
 
     }
 
 
     ionViewWillEnter() {
         this.cardId = this.route.snapshot.paramMap.get('cardId');
+        this.getCard();
 
+    }
+
+    getCard() {
         this.loaderService.presentLoading();
 
         this.cardService.getCardById(this.cardId).subscribe(
@@ -34,6 +42,9 @@ export class CardDetailPage {
                     return card;
                 })[0];
                 this.loaderService.dissmissLoading();
+            }, () => {
+                this.loaderService.dissmissLoading();
+                this.toaster.presentErrorToast('Card couldn\'t be loaded.');
             }
         );
     }
@@ -48,5 +59,13 @@ export class CardDetailPage {
 
     updateImage() {
         this.imageUrl = 'assets/image/DefaultCard.png';
+    }
+
+    doRefresh(event) {
+        this.getCard();
+
+        setTimeout(() => {
+            event.target.complete();
+        }, 1000);
     }
 }

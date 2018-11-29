@@ -1,4 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
     selector: 'app-search',
@@ -11,22 +13,30 @@ export class SearchComponent {
     @Input() filteredProperty: string;
     @Output() searchCompleted = new EventEmitter();
 
+    private searchSubject = new BehaviorSubject<string>('');
+
     handleSearch(event: any) {
-        const searchText = event.target.value;
 
-        if (!this.items) {
-            return this.searchCompleted.emit([]);
-        }
-        if (!searchText) {
-            return this.searchCompleted.emit(this.items);
-        }
+        this.searchSubject.next(event.target.value);
 
-        const filteredItems = this.items.filter((item) => {
-            return item[this.filteredProperty].toLowerCase().includes(searchText.toLowerCase());
+
+    }
+
+    ngAfterViewInit() {
+        this.searchSubject.pipe(debounceTime(1000), distinctUntilChanged()).subscribe(searchText => {
+            if (!this.items) {
+                return this.searchCompleted.emit([]);
+            }
+            if (!searchText) {
+                return this.searchCompleted.emit(this.items);
+            }
+
+            const filteredItems = this.items.filter((item) => {
+                return item[this.filteredProperty].toLowerCase().includes(searchText.toLowerCase());
+            });
+
+            return this.searchCompleted.emit(filteredItems);
         });
-
-        return this.searchCompleted.emit(filteredItems);
-
     }
 
 }

@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {CardService} from '../shared/card.service';
 import {CardDeck} from '../shared/card.model';
+import {ToastService} from '../../shared/service/toast.service';
 
 @Component({
     selector: 'app-card-deck',
@@ -13,7 +14,8 @@ export class CardDeckPage {
     public cardDecks: CardDeck[] = [];
     private readonly ALLOWED_DECKS = ['classes', 'factions', 'qualities', 'types', 'races'];
 
-    constructor(private cardService: CardService) {
+    constructor(private cardService: CardService,
+                private toaster: ToastService) {
         this.getCardDecks();
     }
 
@@ -26,10 +28,20 @@ export class CardDeckPage {
 
     }
 
+    doRefresh(event) {
+        this.getCardDecks();
+
+        setTimeout(() => {
+            event.target.complete();
+        }, 1000);
+    }
+
     private getCardDecks() {
         this.cardService.getAllCardDecks().subscribe(
             (cardDecks: CardDeck[]) => {
                 this.extractAllowedDecks(cardDecks);
+            }, () => {
+                this.toaster.presentErrorToast('Card decks couldn\'t be loaded.');
             });
     }
 
