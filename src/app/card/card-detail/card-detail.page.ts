@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {CardService} from '../shared/card.service';
 import {LoaderService} from '../../shared/service/loader.service';
 import {ToastService} from '../../shared/service/toast.service';
+import {FavoriteCardStore} from '../shared/card-favorite.store';
 
 @Component({
     selector: 'app-card-detail',
@@ -16,11 +17,19 @@ export class CardDetailPage {
     cardId: string;
     card: any;
     imageUrl = 'assets/image/DefaultCard.png';
+    favoriteCards: any = {};
+
 
     constructor(private route: ActivatedRoute,
                 private cardService: CardService,
                 private loaderService: LoaderService,
-                private toaster: ToastService) {
+                private toaster: ToastService,
+                private favoriteCardStore: FavoriteCardStore) {
+        this.favoriteCardStore.favoriteCards.subscribe(
+            (favoriteCards: any) => {
+                this.favoriteCards = favoriteCards;
+            }
+        );
 
     }
 
@@ -39,6 +48,7 @@ export class CardDetailPage {
                 this.card = card.map((card: Card) => {
                     card.text = card.text ? card.text.replace(new RegExp('\\\\n', 'g'), '</br>') : 'No description';
                     card.img = card.img ? this.imageUrl = card.img : card.img = this.imageUrl;
+                    card.favorite = this.cardIsFavorite(card.cardId);
                     return card;
                 })[0];
                 this.loaderService.dissmissLoading();
@@ -67,5 +77,14 @@ export class CardDetailPage {
         setTimeout(() => {
             event.target.complete();
         }, 1000);
+    }
+
+    favoriteCard(card: Card) {
+        this.favoriteCardStore.toggleFavorite(card);
+    }
+
+    private cardIsFavorite(cardId: string): boolean {
+        const card = this.favoriteCards[cardId];
+        return card ? true : false;
     }
 }

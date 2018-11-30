@@ -14,6 +14,10 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
     <div *ngIf="card" class="card-info">
+        <ion-icon name="star"
+                  class="favorite-icon"
+                  (click)="favoriteCard(card)"
+                  [ngClass]="card.favorite ? 'favorite' : 'normal'"></ion-icon>
         <ion-item *ngIf="card.img || card.imgGold">
             <img class="card-image" [src]="imageUrl" (click)="changeImage()" (error)="updateImage($event)">
         </ion-item>

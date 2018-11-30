@@ -7,6 +7,8 @@ import {CardService} from '../shared/card.service';
 import {Card} from '../shared/card.model';
 import {LoaderService} from '../../shared/service/loader.service';
 import {ToastService} from '../../shared/service/toast.service';
+import {FavoriteCardStore} from '../shared/card-favorite.store';
+
 
 @Component({
     selector: 'app-card-listing',
@@ -27,10 +29,14 @@ export class CardListingPage {
                 private cardService: CardService,
                 private loaderService: LoaderService,
                 private toaster: ToastService,
-                private storage: Storage) {
-        this.storage.get('favoriteCards').then((favoriteCards) => {
-            this.favoriteCards = favoriteCards || {};
-        });
+                private storage: Storage,
+                private favoriteCardStore: FavoriteCardStore) {
+
+        this.favoriteCardStore.favoriteCards.subscribe(
+            (favoriteCards: any) => {
+                this.favoriteCards = favoriteCards;
+            }
+        );
     }
 
     ionViewWillEnter() {
@@ -61,16 +67,7 @@ export class CardListingPage {
     }
 
     favoriteCard(card: Card) {
-        if (card.favorite) {
-            card.favorite = false;
-            delete this.favoriteCards[card.cardId];
-        } else {
-            card.favorite = true;
-            this.favoriteCards[card.cardId] = card;
-        }
-
-        this.storage.set('favoriteCards', this.favoriteCards).then(() => {
-        });
+        this.favoriteCardStore.toggleFavorite(card);
     }
 
     private getCards() {

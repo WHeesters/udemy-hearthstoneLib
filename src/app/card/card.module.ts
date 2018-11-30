@@ -13,6 +13,7 @@ import {CardListComponent} from './components/card-list.component';
 import {LoaderService} from '../shared/service/loader.service';
 import {ToastService} from '../shared/service/toast.service';
 import {SearchComponent} from '../shared/component/search/search.component';
+import {FavoriteCardStore} from './shared/card-favorite.store';
 
 @NgModule({
     imports: [
@@ -23,7 +24,8 @@ import {SearchComponent} from '../shared/component/search/search.component';
     providers: [
         CardService,
         LoaderService,
-        ToastService
+        ToastService,
+        FavoriteCardStore
     ],
     declarations: [
         CardDeckPage,
