@@ -13,11 +13,14 @@
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
+    <ion-fab *ngIf="card" vertical="top" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="favoriteCard(card)" color="tertiary">
+            <ion-icon class="favorite-icon"
+                      [ngClass]="card.favorite ? 'favorite' : 'normal'"
+                      name="star"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
     <div *ngIf="card" class="card-info">
-        <ion-icon name="star"
-                  class="favorite-icon"
-                  (click)="favoriteCard(card)"
-                  [ngClass]="card.favorite ? 'favorite' : 'normal'"></ion-icon>
         <ion-item *ngIf="card.img || card.imgGold">
             <img class="card-image" [src]="imageUrl" (click)="changeImage()" (error)="updateImage($event)">
         </ion-item>
