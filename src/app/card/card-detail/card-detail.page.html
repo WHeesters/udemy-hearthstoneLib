@@ -25,19 +25,19 @@
             <img class="card-image" [src]="imageUrl" (click)="changeImage()" (error)="updateImage($event)">
         </ion-item>
         <ion-row *ngIf="card.health || card.attack || card.cost">
-            <ion-col *ngIf="card.cost">
-                <p class="health-and-attack" text-wrap>
-                    <ion-icon name="pricetag" color="secondary"></ion-icon>
+            <ion-col class="cost-health-attack-col" *ngIf="card.cost">
+                <p class="cost-health-attack cost">
+                    <ion-icon name="pricetag"></ion-icon>
                     <b> {{card.cost}}</b></p>
             </ion-col>
-            <ion-col *ngIf="card.attack">
-                <p class="health-and-attack" text-wrap>
-                    <ion-icon name="flame" color="warning"></ion-icon>
+            <ion-col class="cost-health-attack-col" *ngIf="card.attack">
+                <p class="cost-health-attack damage">
+                    <ion-icon name="flame"></ion-icon>
                     <b> {{card.attack}}</b></p>
             </ion-col>
-            <ion-col *ngIf="card.health">
-                <p class="health-and-attack" text-wrap>
-                    <ion-icon name="heart" color="danger"></ion-icon>
+            <ion-col class="cost-health-attack-col" *ngIf="card.health">
+                <p class="cost-health-attack health">
+                    <ion-icon name="heart"></ion-icon>
                     <b> {{card.health}}</b></p>
             </ion-col>
         </ion-row>

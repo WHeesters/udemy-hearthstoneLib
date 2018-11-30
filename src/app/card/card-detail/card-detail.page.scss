@@ -1,5 +1,27 @@
-.health-and-attack {
+.cost-health-attack-col {
   font-size: 1.5em;
+  color: white;
+
+  .cost-health-attack{
+    border-radius: 100px;
+  }
+
+  .cost {
+    background-color: #48BBFC;
+  }
+
+  .health {
+    background-color: #f53d3d;
+  }
+
+  .damage {
+    background-color: #ffce00;
+  }
+
+  ion-icon {
+    position: relative;
+    top: 3px;
+  }
 }
 
 .card-info {
