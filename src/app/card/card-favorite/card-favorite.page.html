@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+        <ion-title>Favorite cards</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <ion-list *ngIf="favoriteCards.length > 0">
+        <ion-card *ngFor="let card of favoriteCards">
+            <ion-card-header text-wrap>
+                <ion-card-subtitle>
+                    {{card.cardSet}}
+                    <ion-icon name="star"
+                              class="favorite-icon"
+                              (click)="favoriteCard(card)"
+                              [ngClass]="card.favorite ? 'favorite' : 'normal'"></ion-icon>
+                </ion-card-subtitle>
+                <ion-card-title>{{card.name}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                <p [innerHtml]="card.text"></p>
+                <ion-button [href]="'/tabs/(card:card/' + card.cardId + ')'" size="medium" expand="full">Details
+                </ion-button>
+            </ion-card-content>
+        </ion-card>
+    </ion-list>
+</ion-content>
