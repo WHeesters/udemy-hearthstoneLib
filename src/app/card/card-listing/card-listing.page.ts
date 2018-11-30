@@ -8,6 +8,7 @@ import {Card} from '../shared/card.model';
 import {LoaderService} from '../../shared/service/loader.service';
 import {ToastService} from '../../shared/service/toast.service';
 import {FavoriteCardStore} from '../shared/card-favorite.store';
+import {Subscription} from 'rxjs';
 
 
 @Component({
@@ -25,6 +26,8 @@ export class CardListingPage {
 
     favoriteCards: any = {};
 
+    favoriteCardsSub: Subscription;
+
     constructor(private route: ActivatedRoute,
                 private cardService: CardService,
                 private loaderService: LoaderService,
@@ -32,7 +35,7 @@ export class CardListingPage {
                 private storage: Storage,
                 private favoriteCardStore: FavoriteCardStore) {
 
-        this.favoriteCardStore.favoriteCards.subscribe(
+        this.favoriteCardsSub = this.favoriteCardStore.favoriteCards.subscribe(
             (favoriteCards: any) => {
                 this.favoriteCards = favoriteCards;
             }
@@ -47,6 +50,12 @@ export class CardListingPage {
             this.getCards();
         }
 
+    }
+
+    ionicViewDidLeave() {
+        if (this.favoriteCardsSub && !this.favoriteCardsSub.closed) {
+            this.favoriteCardsSub.unsubscribe();
+        }
     }
 
     doRefresh(event) {
