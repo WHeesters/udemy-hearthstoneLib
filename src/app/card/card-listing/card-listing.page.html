@@ -17,7 +17,7 @@
                 (searchStarted)="handleSearch()"></app-search>
     <ion-spinner *ngIf="isLoading" text-center></ion-spinner>
     <ion-list *ngIf="cards.length > 0">
-        <ion-card *ngFor="let card of cards">
+        <ion-card *ngFor="let card of cards | slice:0:limit">
             <ion-card-header text-wrap>
                 <ion-card-subtitle>
                     {{card.cardSet}}
@@ -35,4 +35,9 @@
             </ion-card-content>
         </ion-card>
     </ion-list>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles"
+                                     loadingText="Loading more cards...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

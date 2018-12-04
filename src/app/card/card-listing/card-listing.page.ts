@@ -27,6 +27,7 @@ export class CardListingPage {
     favoriteCards: any = {};
 
     favoriteCardsSub: Subscription;
+    limit = 20;
 
     constructor(private route: ActivatedRoute,
                 private cardService: CardService,
@@ -79,6 +80,13 @@ export class CardListingPage {
         this.favoriteCardStore.toggleFavorite(card);
     }
 
+    loadData(infiniteScroll) {
+        setTimeout(() => {
+            this.limit += 20;
+            infiniteScroll.target.complete();
+        }, 200);
+    }
+
     private async getCards() {
         await this.loaderService.presentLoading();
 
@@ -102,6 +110,5 @@ export class CardListingPage {
         const card = this.favoriteCards[cardId];
         return card ? true : false;
     }
-
 
 }
