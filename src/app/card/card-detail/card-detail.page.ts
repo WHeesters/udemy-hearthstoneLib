@@ -40,8 +40,8 @@ export class CardDetailPage {
 
     }
 
-    getCard() {
-        this.loaderService.presentLoading();
+    async getCard() {
+        await this.loaderService.presentLoading();
 
         this.cardService.getCardById(this.cardId).subscribe(
             (card: Card[]) => {
