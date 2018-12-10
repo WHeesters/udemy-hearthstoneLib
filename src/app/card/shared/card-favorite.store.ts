@@ -8,6 +8,7 @@ export class FavoriteCardStore {
     private _favoriteCardsSubject = new BehaviorSubject({});
 
     constructor(private storage: Storage) {
+        this.loadInitData();
 
     }
 
